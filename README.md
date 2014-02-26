@@ -29,12 +29,14 @@ apkファイルのコピーを防止することができます。
 
 >  aidlファイル追加 ( jp/app_mart/service/AppmartADVSInterface.aidl )
 
-```xml
+```java
 package jp.app_mart.service;
 
 import android.os.Bundle;
 
 interface AppmartADVSInterface {    
+
+    //提供元を確認
     int verify(String packageName );
 }
 ```
