@@ -27,7 +27,18 @@ apkファイルのコピーを防止することができます。
  <uses-permission android:name="jp.app_mart.permissions.APPMART_ADVS" />
 ```
 
->  
+>  aidlファイル追加 ( jp/app_mart/service/AppmartADVSInterface.aidl )
+
+```xml
+package jp.app_mart.service;
+
+import android.os.Bundle;
+
+interface AppmartADVSInterface {    
+    int verify(String packageName );
+}
+```
+必ず同じパッケージ名・インタフェース名にしてください。
 
 #### ヘルパークラスを追加
 
