@@ -1,7 +1,7 @@
 ADVS
 ====
 
-Appmart Download Verification Service : アプリコピー防止仕様書
+Appmart Download Verification Service : アプリコピー防止機能API仕様書
 
 
 ---
