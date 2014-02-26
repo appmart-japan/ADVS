@@ -49,8 +49,6 @@ interface AppmartADVSInterface {
 ```java
 package com.example.advstestproject;
 
-import com.example.advstestproject.MainActivity.ResultServiceInterface;
-
 import jp.app_mart.service.AppmartADVSInterface;
 import android.content.ComponentName;
 import android.content.Context;
@@ -59,50 +57,52 @@ import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.util.Log;
-import android.widget.Toast;
+
+import com.example.advstestproject.MainActivity.ResultServiceInterface;
+
 
 public class ADVSHelper {
-	
-	// debug状態
+
+	//debug状態
 	private boolean isDebug = true;	
-	// context
+	//context
 	public Context mContext ;
-	// Appmartパケージ名
+	// appmartパケージ名
 	public static final String APP_PACKAGE = "jp.app_mart";
-	// Appmartサービスパス
+	//Appmartサービスパス
 	public static final String APP_PATH = "jp.app_mart.service.AppmartADVSService";
-	// Appmartサービス
+	//appmartサービス
 	protected AppmartADVSInterface service;
-	// callback
-	ResultServiceInterface callback;
-	
-	// CONSTRUCTOR 
+	//callback
+	public ResultServiceInterface callback;
+
+	/* CONSTRUCTOR */
 	public ADVSHelper(Context context, ResultServiceInterface callback){
 		this.mContext=context;
 		this.callback=callback;
 	}
-	
+
 	public void verifyInstallSource(){
-		
-		// Appmartサービスに接続するためのIntentオブジェクトを生成
+
+		// appmartサービスに接続するためのIntentオブジェクトを生成
 		Intent i = new Intent();
 		i.setClassName(APP_PACKAGE, APP_PATH);
-		
+
 		if (mContext.getPackageManager().queryIntentServices(i, 0).isEmpty()) {
-			debugMess("Appmartがインストールされてないようです。");
+			debugMess("appmartがインストールされてないようです。");
 			callback.isValid(false);
 			return;
 		}
-						
-		// サービス接続
+
+		//サービス接続
         ServiceConnection mConnection = new ServiceConnection() {
-            // 接続時実行
+            //接続時実行
             public void onServiceConnected(ComponentName name, IBinder boundService) {
                 service = AppmartADVSInterface.Stub.asInterface((IBinder) boundService);
                 debugMess("Appmartに接続しました。");
                 verifyAppliIntegrity();
             }
-            // 切断時実行
+            //切断時実行
             public void onServiceDisconnected(ComponentName name) {
                 service = null;
             }            
@@ -117,13 +117,14 @@ public class ADVSHelper {
 			callback.isValid(false);
 			return;
 		}
+
 	}
-	
-	// インストール元を確認 
-	protected void verifyAppliIntegrity(){
+
+	/* アプリ提供元確認 */
+	protected void verifyAppliIntegrity(){	
 		try {
 			if(service.verify(mContext.getPackageName()) == 1 ){
-				debugMess("Appmartからインストールされました。");
+				debugMess("appmartからインストールされました。");
 				callback.isValid(true);
 				return;
 			}else{				
@@ -134,19 +135,16 @@ public class ADVSHelper {
 		} catch (RemoteException e) {
 			callback.isValid(false);
 		}
-	}	
-	
-	// debug用
+	}
+
+	/* debug用 */
 	private void debugMess(String mess) {
 		if (isDebug) {
 			Log.d("DEBUG", mess);
-			Toast.makeText(mContext, mess, Toast.LENGTH_SHORT).show();
 		}
 	}
 
-
 }
-
 ```
 
 #### activityを更新
@@ -177,9 +175,12 @@ public class MainActivity extends Activity {
         ADVSHelper helper = new ADVSHelper(this.getApplicationContext(), new ResultServiceInterface() {			
 			@Override
 			public void isValid(boolean result) {				
-				if (!result)
-			Toast.makeText(getApplicationContext(),"Appmartからインストールされたアプリではありません",Toast.LENGTH_LONG).show();
-				finish();
+				if (!result){
+					Toast.makeText(getApplicationContext(), "appmartからインストールされたアプリではありません",Toast.LENGTH_LONG).show();
+					finish();
+				}else{
+					Toast.makeText(getApplicationContext(), "appmartからインストールされました",Toast.LENGTH_LONG).show();
+				}
 			}
 		});        
        helper.verifyInstallSource();
@@ -197,6 +198,7 @@ public class MainActivity extends Activity {
     }
     
 }
+
 ```
 
  * ヘルパークラスをインスタンス化します
