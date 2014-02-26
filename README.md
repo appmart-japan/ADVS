@@ -9,8 +9,8 @@ Appmart Download Verification Service : アプリコピー防止仕様書
 
 ## 概要
 
-apkファイルのコピー防止ツールとしてADVSを提供させていたきます。
-apkファイルがコピーされても、他の端末で起動しないという仕組みとなっております。
+ADVSはapkファイルのコピー防止機能APIです。
+apkファイルがコピーされて他の端末で実行されても起動しない仕組みとなっております。
 
 --
 
@@ -50,20 +50,20 @@ import android.widget.Toast;
 
 public class ADVSHelper {
 	
-	//debug状態
+	// debug状態
 	private boolean isDebug = true;	
-	//context
+	// context
 	public Context mContext ;
-	// appmartパケージ名
+	// Appmartパケージ名
 	public static final String APP_PACKAGE = "jp.app_mart";
-	//Appmartサービスパス
+	// Appmartサービスパス
 	public static final String APP_PATH = "jp.app_mart.service.AppmartADVSService";
-	//appmartサービス
+	// Appmartサービス
 	protected AppmartADVSInterface service;
-	//callback
+	// callback
 	ResultServiceInterface callback;
 	
-	/* CONSTRUCTOR */
+	// CONSTRUCTOR 
 	public ADVSHelper(Context context, ResultServiceInterface callback){
 		this.mContext=context;
 		this.callback=callback;
@@ -71,25 +71,25 @@ public class ADVSHelper {
 	
 	public void verifyInstallSource(){
 		
-		// appmartサービスに接続するためのIntentオブジェクトを生成
+		// Appmartサービスに接続するためのIntentオブジェクトを生成
 		Intent i = new Intent();
 		i.setClassName(APP_PACKAGE, APP_PATH);
 		
 		if (mContext.getPackageManager().queryIntentServices(i, 0).isEmpty()) {
-			debugMess("appmartがインストールされてないようです。");
+			debugMess("Appmartがインストールされてないようです。");
 			callback.isValid(false);
 			return;
 		}
 						
-		//サービス接続
+		// サービス接続
         ServiceConnection mConnection = new ServiceConnection() {
-            //接続時実行
+            // 接続時実行
             public void onServiceConnected(ComponentName name, IBinder boundService) {
                 service = AppmartADVSInterface.Stub.asInterface((IBinder) boundService);
                 debugMess("Appmartに接続しました。");
                 verifyAppliIntegrity();
             }
-            //切断時実行
+            // 切断時実行
             public void onServiceDisconnected(ComponentName name) {
                 service = null;
             }            
@@ -106,11 +106,11 @@ public class ADVSHelper {
 		}
 	}
 	
-	/* インストール元を確認 */
+	// インストール元を確認 
 	protected void verifyAppliIntegrity(){
 		try {
 			if(service.verify(mContext.getPackageName()) == 1 ){
-				debugMess("appmartからインストールされました。");
+				debugMess("Appmartからインストールされました。");
 				callback.isValid(true);
 				return;
 			}else{				
@@ -123,7 +123,7 @@ public class ADVSHelper {
 		}
 	}	
 	
-	/* debug用 */
+	// debug用
 	private void debugMess(String mess) {
 		if (isDebug) {
 			Log.d("DEBUG", mess);
@@ -165,7 +165,7 @@ public class MainActivity extends Activity {
 			@Override
 			public void isValid(boolean result) {				
 				if (!result)
-				Toast.makeText(getApplicationContext(), "appmartからインストールされたアプリではありません",Toast.LENGTH_LONG).show();
+			Toast.makeText(getApplicationContext(),"Appmartからインストールされたアプリではありません",Toast.LENGTH_LONG).show();
 				finish();
 			}
 		});        
@@ -186,7 +186,7 @@ public class MainActivity extends Activity {
 }
 ```
 
- * Helperクラスをインスタンス化します
+ * ヘルパークラスをインスタンス化します
  * verifyInstallSourceメッソドを呼び出します
 
 
