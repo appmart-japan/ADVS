@@ -26,7 +26,7 @@ public class ADVSHelper {
 	//appmartサービス
 	protected AppmartADVSInterface service;
 	//callback
-	ResultServiceInterface callback;
+	public ResultServiceInterface callback;
 
 	/* CONSTRUCTOR */
 	public ADVSHelper(Context context, ResultServiceInterface callback){
