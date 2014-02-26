@@ -14,74 +14,73 @@ import android.widget.Toast;
 
 
 public class ADVSHelper {
-	
-	//debugó‘Ô
+
+	//debugçŠ¶æ…‹
 	private boolean isDebug = true;	
 	//context
 	public Context mContext ;
-	// appmartƒpƒP[ƒW–¼
+	// appmartãƒ‘ã‚±ãƒ¼ã‚¸å
 	public static final String APP_PACKAGE = "jp.app_mart";
-	//AppmartƒT[ƒrƒXƒpƒX
+	//Appmartã‚µãƒ¼ãƒ“ã‚¹ãƒ‘ã‚¹
 	public static final String APP_PATH = "jp.app_mart.service.AppmartADVSService";
-	//appmartƒT[ƒrƒX
+	//appmartã‚µãƒ¼ãƒ“ã‚¹
 	protected AppmartADVSInterface service;
 	//callback
 	ResultServiceInterface callback;
-	
+
 	/* CONSTRUCTOR */
 	public ADVSHelper(Context context, ResultServiceInterface callback){
 		this.mContext=context;
 		this.callback=callback;
 	}
 
-	
 	public void verifyInstallSource(){
-		
-		// appmartƒT[ƒrƒX‚ÉÚ‘±‚·‚é‚½‚ß‚ÌIntentƒIƒuƒWƒFƒNƒg‚ğ¶¬
+
+		// appmartã‚µãƒ¼ãƒ“ã‚¹ã«æ¥ç¶šã™ã‚‹ãŸã‚ã®Intentã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç”Ÿæˆ
 		Intent i = new Intent();
 		i.setClassName(APP_PACKAGE, APP_PATH);
-		
+
 		if (mContext.getPackageManager().queryIntentServices(i, 0).isEmpty()) {
-			debugMess("appmart‚ªƒCƒ“ƒXƒg[ƒ‹‚³‚ê‚Ä‚È‚¢‚æ‚¤‚Å‚·B");
+			debugMess("appmartãŒã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã•ã‚Œã¦ãªã„ã‚ˆã†ã§ã™ã€‚");
 			callback.isValid(false);
 			return;
 		}
-						
-		//ƒT[ƒrƒXÚ‘±
+
+		//ã‚µãƒ¼ãƒ“ã‚¹æ¥ç¶š
         ServiceConnection mConnection = new ServiceConnection() {
-            //Ú‘±Às
+            //æ¥ç¶šæ™‚å®Ÿè¡Œ
             public void onServiceConnected(ComponentName name, IBinder boundService) {
                 service = AppmartADVSInterface.Stub.asInterface((IBinder) boundService);
-                debugMess("Appmart‚ÉÚ‘±‚µ‚Ü‚µ‚½B");
+                debugMess("Appmartã«æ¥ç¶šã—ã¾ã—ãŸã€‚");
                 verifyAppliIntegrity();
             }
-            //Ø’fÀs
+            //åˆ‡æ–­æ™‚å®Ÿè¡Œ
             public void onServiceDisconnected(ComponentName name) {
                 service = null;
             }            
         };
 
-		// bindService‚ğ—˜—p‚µAƒT[ƒrƒX‚ÉÚ‘±
+		// bindServiceã‚’åˆ©ç”¨ã—ã€ã‚µãƒ¼ãƒ“ã‚¹ã«æ¥ç¶š
 		try {			
 			mContext.bindService(i, mConnection, Context.BIND_AUTO_CREATE);			
 		} catch (Exception e) {
 			e.printStackTrace();
-			debugMess("Appmart‚Æ‚ÌÚ‘±‚Í¸”s‚µ‚Ü‚µ‚½B");
+			debugMess("Appmartã¨ã®æ¥ç¶šã¯å¤±æ•—ã—ã¾ã—ãŸã€‚");
 			callback.isValid(false);
 			return;
 		}
 
 	}
-	
-	
+
+	/* ã‚¢ãƒ—ãƒªæä¾›å…ƒç¢ºèª */
 	protected void verifyAppliIntegrity(){	
 		try {
 			if(service.verify(mContext.getPackageName()) == 1 ){
-				debugMess("appmart‚©‚çƒCƒ“ƒXƒg[ƒ‹‚³‚ê‚Ü‚µ‚½B");
+				debugMess("appmartã‹ã‚‰ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã•ã‚Œã¾ã—ãŸã€‚");
 				callback.isValid(true);
 				return;
 			}else{				
-				debugMess("Appmart‚Åƒ_ƒEƒ“ƒ[ƒh‚³‚ê‚Ä‚¨‚è‚Ü‚¹‚ñB");
+				debugMess("Appmartã§ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ã•ã‚Œã¦ãŠã‚Šã¾ã›ã‚“ã€‚");
 				callback.isValid(false);
 				return;
 			}
@@ -89,15 +88,13 @@ public class ADVSHelper {
 			callback.isValid(false);
 		}
 	}
-	
-	
-	/* debug—p */
+
+	/* debugç”¨ */
 	private void debugMess(String mess) {
 		if (isDebug) {
 			Log.d("DEBUG", mess);
 			Toast.makeText(mContext, mess, Toast.LENGTH_SHORT).show();
 		}
 	}
-
 
 }

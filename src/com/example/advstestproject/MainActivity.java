@@ -7,9 +7,6 @@ import android.view.Menu;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
-
-	//TAG
-	private final String TAG = this.getClass().getSimpleName();
 		
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,14 +15,14 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         
         /*
-         * @ADVSHelper ƒNƒ‰ƒXƒtƒ@ƒCƒ‹‚ğ’Ç‰Á‚µ‚ÄA
-         * {@link ADVSHelper#verifyInstallSource() } ƒƒbƒ\[ƒh‚ğŒÄ‚Ño‚µ‚Ä‚­‚¾‚³‚¢ 
+         * @ADVSHelper ã‚¯ãƒ©ã‚¹ãƒ•ã‚¡ã‚¤ãƒ«ã‚’è¿½åŠ ã—ã¦ã€
+         * {@link ADVSHelper#verifyInstallSource() } ãƒ¡ãƒƒã‚½ãƒ¼ãƒ‰ã‚’å‘¼ã³å‡ºã—ã¦ãã ã•ã„ 
          */
         ADVSHelper helper = new ADVSHelper(this.getApplicationContext(), new ResultServiceInterface() {			
 			@Override
 			public void isValid(boolean result) {				
 				if (!result)
-				Toast.makeText(getApplicationContext(), "appmart‚©‚çƒCƒ“ƒXƒg[ƒ‹‚³‚ê‚½ƒAƒvƒŠ‚Å‚Í‚ ‚è‚Ü‚¹‚ñ",Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(), "appmartã‹ã‚‰ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã•ã‚ŒãŸã‚¢ãƒ—ãƒªã§ã¯ã‚ã‚Šã¾ã›ã‚“",Toast.LENGTH_LONG).show();
 				finish();
 			}
 		});        
