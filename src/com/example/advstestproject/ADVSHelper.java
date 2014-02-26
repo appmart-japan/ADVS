@@ -1,7 +1,5 @@
 package com.example.advstestproject;
 
-import com.example.advstestproject.MainActivity.ResultServiceInterface;
-
 import jp.app_mart.service.AppmartADVSInterface;
 import android.content.ComponentName;
 import android.content.Context;
@@ -10,7 +8,8 @@ import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.util.Log;
-import android.widget.Toast;
+
+import com.example.advstestproject.MainActivity.ResultServiceInterface;
 
 
 public class ADVSHelper {
@@ -93,7 +92,6 @@ public class ADVSHelper {
 	private void debugMess(String mess) {
 		if (isDebug) {
 			Log.d("DEBUG", mess);
-			Toast.makeText(mContext, mess, Toast.LENGTH_SHORT).show();
 		}
 	}
 

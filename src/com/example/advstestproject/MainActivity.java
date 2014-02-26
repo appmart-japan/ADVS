@@ -21,9 +21,12 @@ public class MainActivity extends Activity {
         ADVSHelper helper = new ADVSHelper(this.getApplicationContext(), new ResultServiceInterface() {			
 			@Override
 			public void isValid(boolean result) {				
-				if (!result)
-				Toast.makeText(getApplicationContext(), "appmartからインストールされたアプリではありません",Toast.LENGTH_LONG).show();
-				finish();
+				if (!result){
+					Toast.makeText(getApplicationContext(), "appmartからインストールされたアプリではありません",Toast.LENGTH_LONG).show();
+					finish();
+				}else{
+					Toast.makeText(getApplicationContext(), "appmartからインストールされました",Toast.LENGTH_LONG).show();
+				}
 			}
 		});        
        helper.verifyInstallSource();
