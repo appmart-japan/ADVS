@@ -17,7 +17,7 @@ apkファイルがコピーされても、他の端末で起動しないとい�
 ## 実装
 
 AIDLファイルを実装していただいて、アプリ起動時に呼ばれているactivityにコード数行を追加していただくだけで
-apkファイルのコピーを防止できます。
+apkファイルのコピーを防止することができます。
 
 #### manifestファイルを更新
 
@@ -189,7 +189,8 @@ public class MainActivity extends Activity {
  * Helperクラスをインスタンス化します
  * verifyInstallSourceメッソドを呼び出します
 
->  Helperインスタンス化のパラメータ
+
+>  Helper constructorのパラメータ
 
 | パラメータ名     | 説明           |
 | ------------- |:-------------:| ------: |
