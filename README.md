@@ -1,10 +1,13 @@
 ADVS
 ====
 
+
+![last-version](http://img.shields.io/badge/last%20version-1.0-green.svg "last version:1.1") 
+
+![license apache 2.0](http://img.shields.io/badge/license-apache%202.0-brightgreen.svg "licence apache 2.0")
+
+
 Appmart Download Verification Service : アプリコピー防止機能API仕様書
-
-
----
 
 
 ## 概要
