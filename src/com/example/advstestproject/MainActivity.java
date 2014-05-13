@@ -22,7 +22,7 @@ public class MainActivity extends Activity {
 			@Override
 			public void isValid(boolean result) {				
 				if (!result){
-					Toast.makeText(getApplicationContext(), "appmartからインストールされたアプリではありません",Toast.LENGTH_LONG).show();
+					Toast.makeText(getApplicationContext(), "appmartよりインストールされたアプリではない、またはappmartがアンインストール・再インストールされたようです。もう一度appmartからダウンロードしてしください。",Toast.LENGTH_LONG).show();
 					finish();
 				}else{
 					Toast.makeText(getApplicationContext(), "appmartからインストールされました",Toast.LENGTH_LONG).show();

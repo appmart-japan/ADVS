@@ -92,7 +92,7 @@ public class ADVSHelper {
 		i.setClassName(APP_PACKAGE, APP_PATH);
 
 		if (mContext.getPackageManager().queryIntentServices(i, 0).isEmpty()) {
-			debugMess("appmartがインストールされてないようです。");
+			debugMess("appmartがインストールされてないようです");
 			callback.isValid(false);
 			return;
 		}
@@ -131,7 +131,7 @@ public class ADVSHelper {
 				callback.isValid(true);
 				return;
 			}else{				
-				debugMess("Appmartでダウンロードされておりません。");
+				debugMess("Appmartよりダウンロードされていない、またはappmartがアンインストール・再インストールされたようです。");
 				callback.isValid(false);
 				return;
 			}
@@ -179,7 +179,7 @@ public class MainActivity extends Activity {
 			@Override
 			public void isValid(boolean result) {				
 				if (!result){
-					Toast.makeText(getApplicationContext(), "appmartからインストールされたアプリではありません",Toast.LENGTH_LONG).show();
+					Toast.makeText(getApplicationContext(), "appmartよりインストールされたアプリではない、またはappmartがアンインストール・再インストールされたようです。もう一度appmartからダウンロードしてしください。",Toast.LENGTH_LONG).show();
 					finish();
 				}else{
 					Toast.makeText(getApplicationContext(), "appmartからインストールされました",Toast.LENGTH_LONG).show();

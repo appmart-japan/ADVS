@@ -79,7 +79,7 @@ public class ADVSHelper {
 				callback.isValid(true);
 				return;
 			}else{				
-				debugMess("Appmartでダウンロードされておりません。");
+				debugMess("Appmartよりダウンロードされていない、またはappmartがアンインストール・再インストールされたようです。");
 				callback.isValid(false);
 				return;
 			}
