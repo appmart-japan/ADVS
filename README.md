@@ -1,4 +1,4 @@
-ADVS
+ADVS(DRM)
 ====
 
 
@@ -7,7 +7,7 @@ ADVS
 ![license apache 2.0](http://img.shields.io/badge/license-apache%202.0-brightgreen.svg "licence apache 2.0")
 
 
-Appmart Download Verification Service : アプリコピー防止機能API仕様書
+Appmart Download Verification Service : アプリ不正インストール防止機能API仕様書
 
 
 ## 概要
